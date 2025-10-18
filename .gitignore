@@ -12,3 +12,5 @@ __pycache__/
 *.pyo
 *.db
 .DS_Store
+
+*db.sqlite3
