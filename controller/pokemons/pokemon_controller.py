@@ -1,3 +1,4 @@
+from services.pokemon_favorite_service import PokemonFavoriteService
 from flask import Blueprint, jsonify, request
 from middleware.auth_middleware import jwt_required
 from services.consumer.pokemon_service import PokemonService
@@ -16,4 +17,12 @@ def get_pokemons():
 @jwt_required
 def get_pokemon_by_name(name):
     response, status = PokemonService.get_pokemon_by_name(name)
+    return jsonify(response), status
+
+@pokemon_bp.route('/pokemons/favorite', methods=['POST'])
+@jwt_required
+def add_favorite():
+    data = request.get_json()
+    token = request.headers.get('Authorization').split(" ")[1]
+    response, status = PokemonFavoriteService.add_favorite(data, token)
     return jsonify(response), status

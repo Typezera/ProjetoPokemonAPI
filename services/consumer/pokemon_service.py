@@ -1,11 +1,14 @@
 import requests
 import os
+from functools import lru_cache
 
 class PokemonService:
 
     POKEMON_API_URL = os.getenv("POKEMON_API_URL", "https://pokeapi.co/api/v2/pokemon") ## load the POKEMON_API_URL from the .env file
 
+    
     @staticmethod
+    @lru_cache(maxsize=10)
     def get_all_pokemons(limit=50, offset=0):
         # search list of limited pokemons
         try:
