@@ -24,3 +24,20 @@ class PokemonFavoriteService:
         except Exception as e:
             return {"success": False, "error": str(e)}, 500
         
+
+    def get_favorites(token):
+        try:
+            decoded = JwtUtil.verify_token(token)
+            if not decoded.get("valid"):
+                return {"success": False, "message": decoded.get("message", "Invalid token")}, 401
+
+            user_id = decoded["data"].get("user_id")
+
+            favorites = Pokemon.query.filter_by(user_id=user_id).all()
+            favorites_list = [fav.to_dict() for fav in favorites]
+
+            return {"success": True, "favorites": favorites_list}, 200
+
+        except Exception as e:
+            return {"success": False, "error": str(e)}, 500
+        

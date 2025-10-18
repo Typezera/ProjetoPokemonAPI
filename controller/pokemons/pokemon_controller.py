@@ -26,3 +26,10 @@ def add_favorite():
     token = request.headers.get('Authorization').split(" ")[1]
     response, status = PokemonFavoriteService.add_favorite(data, token)
     return jsonify(response), status
+
+@pokemon_bp.route('/pokemons/favorites', methods=['GET'])
+@jwt_required
+def get_favorites():
+    token = request.headers.get('Authorization').split(" ")[1]
+    response, status = PokemonFavoriteService.get_favorites(token)
+    return jsonify(response), status
