@@ -33,3 +33,9 @@ def get_favorites():
     token = request.headers.get('Authorization').split(" ")[1]
     response, status = PokemonFavoriteService.get_favorites(token)
     return jsonify(response), status
+@pokemon_bp.route('/pokemons/favorite/<pokemon_id>', methods=['DELETE'])
+@jwt_required
+def delete_favorite(pokemon_id):
+    token = request.headers.get('Authorization').split(" ")[1]
+    response, status = PokemonFavoriteService.delete_favorite(pokemon_id, token)
+    return jsonify(response), status
