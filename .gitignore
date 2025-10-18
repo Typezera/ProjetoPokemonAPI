@@ -1,0 +1,14 @@
+#Ambiente virtual
+venv/
+__pycache__/
+
+## Arquivos de configuração local
+.env
+
+
+# CAche e Lixo
+
+*.pyc 
+*.pyo
+*.db
+.DS_Store
