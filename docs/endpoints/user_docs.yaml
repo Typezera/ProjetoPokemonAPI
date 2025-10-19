@@ -1,0 +1,71 @@
+paths:
+  /api/users/register:
+    post:
+      tags:
+        - users
+      summary: Register a new user
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: Successfully registered user
+        400:
+          description: Invalid data
+        409:
+          description: E-mail already in use
+
+  /api/users:
+    get:
+      tags:
+        - users
+      summary: List all accounts registered
+      description: EndPoint to list all users registered in system
+      security:
+        - Bearer: []
+      reponses:
+        200:
+          description: Users listed successfully
+        401:
+          description: Invalid jwt token!
+        500:
+          description: Internal server error
+
+  /api/users/login:
+    post:
+      tags:
+        - users
+      summary: log in and return the jwt token
+      description: log in with email and password
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            required:
+              - email
+              - password
+            properties:
+              email:
+                type: string
+                example: "teste@teste.com"
+              password:
+                type: string
+                example: "12345678"
+      reponses:
+        200:
+          description: User logged in successfully
+        401:
+          description: credentials invalid

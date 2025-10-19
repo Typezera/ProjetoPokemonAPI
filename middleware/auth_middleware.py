@@ -20,7 +20,9 @@ def jwt_required(f): #middleware decorator for all routes!
         if not verification["valid"]:
             return jsonify({"success": False, "message": verification["message"]}), 401
 
-        request.user = verification["data"]
+        user_data = verification["data"]
+        #request.user = verification["data"]
+        kwargs['user_data'] = user_data
 
         return f(*args, **kwargs)
     return decorated   

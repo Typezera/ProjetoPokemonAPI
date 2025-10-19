@@ -1,0 +1,119 @@
+paths:
+  /api/pokemons:
+    get:
+      tags:
+        - Pokémons
+      summary: Get all Pokémons from the PokéAPI
+      description: Returns a paginated list of Pokémons with limit and offset parameters.
+      security:
+        - Bearer: []
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            example: 50
+          description: Maximum number of Pokémons to return.
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            example: 0
+          description: Starting index for pagination.
+      responses:
+        200:
+          description: List successfully retrieved.
+        401:
+          description: Invalid JWT token.
+
+  /api/pokemons/{name}:
+    get:
+      tags:
+        - Pokémons
+      summary: Get a Pokémon by name
+      description: Returns detailed information about a specific Pokémon.
+      security:
+        - Bearer: []
+      parameters:
+        - in: path
+          name: name
+          required: true
+          schema:
+            type: string
+          description: Pokémon name (e.g., "pikachu").
+      responses:
+        200:
+          description: Pokémon found successfully.
+        401:
+          description: Invalid JWT token.
+        404:
+          description: Pokémon not found.
+
+  /api/pokemons/favorite:
+    post:
+      tags:
+        - Pokémons
+      summary: Add a Pokémon to the user's favorites
+      description: Allows an authenticated user to add a Pokémon to their favorites list.
+      security:
+        - Bearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Pikachu"
+                image:
+                  type: string
+                  example: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+                types:
+                  type: string
+                  example: "Electric"
+      responses:
+        201:
+          description: Pokémon successfully added to favorites.
+        400:
+          description: Invalid data provided.
+        401:
+          description: Invalid JWT token.
+
+  /api/pokemons/favorites:
+    get:
+      tags:
+        - Pokémons
+      summary: Get all favorite Pokémons
+      description: Returns a list of Pokémons favorited by the authenticated user.
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: Favorite Pokémons successfully retrieved.
+        401:
+          description: Invalid JWT token.
+
+  /api/pokemons/favorite/{pokemon_id}:
+    delete:
+      tags:
+        - Pokémons
+      summary: Remove a Pokémon from favorites
+      description: Deletes a Pokémon from the user's favorite list using its ID.
+      security:
+        - Bearer: []
+      parameters:
+        - in: path
+          name: pokemon_id
+          required: true
+          schema:
+            type: integer
+          description: ID of the favorite Pokémon to delete.
+      responses:
+        200:
+          description: Pokémon successfully removed from favorites.
+        404:
+          description: Pokémon not found.
+        401:
+          description: Invalid JWT token.

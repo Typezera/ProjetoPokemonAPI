@@ -30,7 +30,7 @@ class UserService:
         
     @staticmethod
     def get_all_users():
-        users = db.session.query("User").all()
+        users = db.session.query(User).all()
         data = UserResponseDTO.from_entity_list(users)
         return {"sucess": True, "users": data} 
 
