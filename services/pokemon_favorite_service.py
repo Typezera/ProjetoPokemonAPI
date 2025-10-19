@@ -3,7 +3,7 @@ from entities.type_pokemon_entity import TipoPokemon
 from models import db
 from security.jwt_util import JwtUtil
 
-class PokemonFavoriteService:
+class PokemonFavoriteService:      
     @staticmethod
     def add_favorite(data, token):
         try:
@@ -57,7 +57,7 @@ class PokemonFavoriteService:
         except Exception as e:
             return {"success": False, "error": str(e)}, 500
         
-    def delete_favorite(pokemon_id, token):
+    def delete_favorite(pokemon_id, token):  ##########Não consegui corrigir o problema, sempre retorna um errro no SQL e gastei horas porém não consegui resolver
         try:
 
             verification = JwtUtil.verify_token(token) 
@@ -84,7 +84,7 @@ class PokemonFavoriteService:
             return {"message": f"Erro interno ao deletar: {str(e)}", "success": False}, 500
         
     @staticmethod
-    def update_battle_team(data, token):
+    def update_battle_team(data, token):  ##########Não consegui corrigir o problema, sempre retorna um errro no SQL e gastei horas porém não consegui resolver
         user_id = JwtUtil.verify_token(token)
 
         code_pokemon = data.get('code')
@@ -127,7 +127,7 @@ class PokemonFavoriteService:
             return {"message": f"Error to update the battle team: {str(e)}"}, 500
     
     @staticmethod
-    def get_battle_team(token):
+    def get_battle_team(token):  ##########Não consegui corrigir o problema, sempre retorna um errro no SQL e gastei horas porém não consegui resolver
         user_id = JwtUtil.verify_token(token)
 
         team = db.session.query(Pokemon).filter(
